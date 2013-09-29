@@ -1,0 +1,88 @@
+#Definicion de funciones
+
+class Words:
+
+	good_list=[]
+        path=""
+	def __init__(self):
+		self.good_list=[]
+                self.path=""
+	def getwords(self,path):
+     
+      		#good_list=[]
+	
+        	if self.path:
+       			file=open(path,'r') #reading the file as read only if path is not emty
+	        else:
+        	        file=open("/home/swc/palabras.txt",'r') #reading the file as read only if the path is emty
+	
+        		if file: # if file is not null then it will have the next commands 
+            			lines=file.readlines() # it makes the new list with the information of the file
+           	        	print "-------------------"
+	           	        print "Leyendo Lista"
+        	    		print "-------------------"
+            			for line in lines: #cicle through the list to read each line and to split estonian from spanish
+                        			self.good_list.append(line.split('=')) #split estonian from spanish with this mark (=) and we add this list to the other list which is called good_list that contains separated estonian and spanish words which we use in the program
+					
+	            		file.close()#every time also we have to close the file if we had opened it< just needed command
+			#	return good_list#to populate the good list
+	    		else:#if we cannot read the file or something happens then
+        		        print "Error Opening File"
+			#	return good_list #and it returns to empty good list
+
+	   	
+	def sayhello(self):
+		print "==========================="
+		print "BIENVENIDOS - TERETULEMAST "
+       	        print "==========================="
+        	print "Recuerda las reglas del juego, debes contestar  "
+        	print " 5 palabras cada dia de ahora en adelante."
+
+	def encourage(self):
+		print "MUY BIEN"
+	def disencourage(self):
+		print "INCORRECTO"
+
+
+
+	def getwordsFortoday(self):
+        	good_list=self.getwords("")
+		print range(len(self.good_list)) #len it gives the number of elements<  range prindib koik elemendid alates viimasest
+
+		print len(self.good_list) #et n'ha palju elemente on
+		print "Primera %s" %  self.good_list[0] # the first element 
+        	print "Ultima %s" % self.good_list[len(self.good_list)-1]# viimane element
+
+	def main_cicle(self):
+                var=-1
+		condition=True
+			
+		while var != "0":
+		
+			print "Iniciando ciclo de preguntas"
+        		var=raw_input("Escriba una opcion porfavor: ") # we ask the input with this raw command 
+			print " ->  ", var#here we put that mark and the person as to put input
+			self.verify_answer(var) #valuate the answer
+		            
+
+                 
+
+
+	def verify_answer(self,val):#testing how to manage the answer from the user
+		if val == "1":#== we need to use if we are comparing two things
+			print "Cargando Preguntas de hoy"
+			print self.good_list
+		else:
+			print "Otra cosa"
+	
+	
+
+
+
+
+
+#Inicio programa
+q = Words()
+q.sayhello()
+q.getwordsFortoday()
+q.main_cicle()
