@@ -16,7 +16,7 @@ class Words:
         	if self.path:
        			file=open(path,'r') #reading the file as read only if path is not emty
 	        else:
-        	        file=open("/home/swc/palabras.txt",'r') #reading the file as read only if the path is emty
+        	        file=open("palabras.txt",'r') #reading the file as read only if the path is emty
 	
         		if file: # if file is not null then it will have the next commands 
             			lines=file.readlines() # it makes the new list with the information of the file
