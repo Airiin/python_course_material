@@ -3,7 +3,9 @@
 class Words:
 
 	good_list=[]
+	get_questions=[]
         path=""
+	wtoA=4 #How words to chosse to ask	
 	def __init__(self):
 		self.good_list=[]
                 self.path=""
@@ -52,7 +54,12 @@ class Words:
 		print len(self.good_list) #et n'ha palju elemente on
 		print "Primera %s" %  self.good_list[0] # the first element 
         	print "Ultima %s" % self.good_list[len(self.good_list)-1]# viimane element
-
+                cont = 0
+		while cont <self.wtoA:
+			print "cont %d "% cont
+			cont=cont+1
+                	self.get_questions.append(self.good_list[cont])
+			 
 	def main_cicle(self):
                 var=-1
 		condition=True
@@ -60,21 +67,30 @@ class Words:
 		while var != "0":
 		
 			print "Iniciando ciclo de preguntas"
-        		var=raw_input("Escriba una opcion porfavor: ") # we ask the input with this raw command 
-			print " ->  ", var#here we put that mark and the person as to put input
-			self.verify_answer(var) #valuate the answer
-		            
+        		print "Las preguntas de hoy son "
+			for question in self.get_questions:
+				print " preg->  %s " % question[0]
+				print " ans-> %s" % question[1]
+				#print  "->get_questions  %s "% self.get_questions
+				ans=raw_input("Escriba una opcion porfavor: ") # we ask the input with this raw command 
+				print " ->  ", ans#here we put that mark and the person as to put input
+				self.verify_answer(ans,question) #valuate the answer
+		 	var=raw_input("Escriba cero para salir : ")               
 
                  
 
 
-	def verify_answer(self,val):#testing how to manage the answer from the user
-		if val == "1":#== we need to use if we are comparing two things
-			print "Cargando Preguntas de hoy"
-			print self.good_list
+	def verify_answer(self,val,quest):#testing how to manage the answer from the user
+		print "val ",val
+		if val == quest[1]:#== we need to use if we are comparing two things
+			self.encourage()
+			print "val ",val
+			print "quest[0] ",quest[0]
+			print "quest[1] ",quest[1]
+			
 		else:
 			print "Otra cosa"
-	
+ 
 	
 
 
@@ -86,3 +102,6 @@ q = Words()
 q.sayhello()
 q.getwordsFortoday()
 q.main_cicle()
+
+          
+
