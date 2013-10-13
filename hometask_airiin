@@ -1,8 +1,9 @@
 #Definicion de funciones
-
+import os
 class Words:
 
 	good_list=[]
+	bad_list=[]
 	get_questions=[]
         path=""
 	wtoA=4 #How words to chosse to ask	
@@ -34,11 +35,14 @@ class Words:
 
 	   	
 	def sayhello(self):
+		os.system("clear")
 		print "==========================="
 		print "BIENVENIDOS - TERETULEMAST "
        	        print "==========================="
         	print "Recuerda las reglas del juego, debes contestar  "
         	print " 5 palabras cada dia de ahora en adelante."
+		print "PREGUNTAS DISPONIBLES = ",len(self.good_list)
+		print "PREGUTNAS MALAS       = ",len(self.bad_list)
 
 	def encourage(self):
 		print "MUY BIEN"
@@ -50,7 +54,6 @@ class Words:
 	def getwordsFortoday(self):
         	good_list=self.getwords("")
 		print range(len(self.good_list)) #len it gives the number of elements<  range prindib koik elemendid alates viimasest
-
 		print len(self.good_list) #et n'ha palju elemente on
 		print "Primera %s" %  self.good_list[0] # the first element 
         	print "Ultima %s" % self.good_list[len(self.good_list)-1]# viimane element
@@ -65,20 +68,49 @@ class Words:
 		condition=True
 			
 		while var != "0":
-		
 			print "Iniciando ciclo de preguntas"
         		print "Las preguntas de hoy son "
-			for question in self.get_questions:
-				print " preg->  %s " % question[0]
-				print " ans-> %s" % question[1]
-				#print  "->get_questions  %s "% self.get_questions
-				ans=raw_input("Escriba una opcion porfavor: ") # we ask the input with this raw command 
-				print " ->  ", ans#here we put that mark and the person as to put input
-				self.verify_answer(ans,question) #valuate the answer
-		 	var=raw_input("Escriba cero para salir : ")               
-
-                 
-
+                        print "bad_list",len(self.bad_list)
+			print "get_questions",self.get_questions
+			ans=""
+			self.sayhello()
+			if len(self.bad_list) > 2:
+				print "YOU HAVE FAILED ME"
+				for question in self.bad_list:
+					self.sayhello()
+					print " bad_question %s ", str(self.bad_list)
+					print " badpreg-> %s "% question[0]
+					print " badans->  %s "% question[1]
+					ans=raw_input("Contesta esta pregunta :")
+					print " -> ", ans
+					self.verify_answer_bad(ans,question)
+					
+			
+		 	else:
+				#self.ask_question()
+				for question in self.get_questions:
+					self.sayhello()
+					print " question %s ", str(self.get_questions)
+					print " preg-> %s " % question[0]
+					print " ans-> %s " % question[1]
+					ans=raw_input("Escriba las respues : ")
+					print " -> ", ans #there we put a that mark and the person
+					self.verify_answer(ans,question)
+	                
+	def verify_answer_bad(self,val,quest):
+		print "val ",val
+		if val == quest[1]:
+			self.encourage()
+			print "val",val
+			print "quest[0]",quest[0]
+			print "quest[1]",quest[1]
+			self.bad_list.remove(quest)
+		else:
+			print "Respuesta equivocada."
+			self.bad_list.append(quest)
+			self.bad_list.remove(quest)
+			
+ 
 
 	def verify_answer(self,val,quest):#testing how to manage the answer from the user
 		print "val ",val
@@ -87,11 +119,13 @@ class Words:
 			print "val ",val
 			print "quest[0] ",quest[0]
 			print "quest[1] ",quest[1]
+			self.get_questions.remove(quest)
 			
 		else:
-			print "Otra cosa"
- 
-	
+			print "Respuesta equivocada."
+ 			self.bad_list.append(quest)
+			self.get_questions.remove(quest)
+
 
 
 
